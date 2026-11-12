@@ -43,17 +43,16 @@
     z-index: 0;
   }
 
-  /* Super Top Mode Banner */
+  /* Super Top Mode Banner (Left side) */
   .mode-banner {
     position: fixed;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 12px;
+    left: 16px;
     background: rgba(30, 41, 59, 0.92);
     border: 1px solid rgba(96, 165, 250, 0.4);
     backdrop-filter: blur(8px);
     border-radius: 999px;
-    padding: 4px 14px;
+    padding: 5px 14px;
     font-size: 11px;
     color: #94a3b8;
     z-index: 100;
@@ -83,6 +82,40 @@
     background: #93c5fd;
   }
 
+  /* Super Top Restart Button (Right side) */
+  .top-restart-btn {
+    position: fixed;
+    top: 12px;
+    right: 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #cbd5e1;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  }
+
+  .top-restart-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+  }
+
+  .top-restart-btn svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.2;
+  }
+
   .stage {
     position: relative;
     width: 100%;
@@ -93,11 +126,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 36px 16px 16px;
+    padding: 24px 16px;
     z-index: 2;
   }
 
-  /* Compact Brand Header closer to phone */
+  /* Compact Brand Header close to the phone */
   .brand-header {
     text-align: center;
     z-index: 10;
@@ -513,72 +546,6 @@
   #callout-9 { top: 375px; left: -42px; }
   #callout-10 { top: 395px; right: -42px; }
 
-  /* Bottom Controls */
-  .bottom-bar {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    z-index: 20;
-    margin-top: 4px;
-  }
-
-  .progress-dots {
-    display: flex;
-    gap: 4px;
-  }
-
-  .dot {
-    width: 14px;
-    height: 3px;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.2);
-    overflow: hidden;
-    position: relative;
-    cursor: pointer;
-  }
-
-  .dot-fill {
-    position: absolute;
-    inset: 0;
-    width: 0%;
-    background: #60a5fa;
-    border-radius: 999px;
-  }
-
-  .dot.active .dot-fill {
-    width: 100%;
-    transition: width var(--dot-duration, 2.5s) linear;
-  }
-
-  .dot.done .dot-fill {
-    width: 100%;
-  }
-
-  .replay-btn {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    color: #cbd5e1;
-    font-size: 10px;
-    font-weight: 600;
-    padding: 4px 11px;
-    border-radius: 999px;
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    cursor: pointer;
-    backdrop-filter: blur(8px);
-  }
-
-  .replay-btn svg {
-    width: 11px;
-    height: 11px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2.2;
-  }
-
   @keyframes nfcPulseOut {
     0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0.95; }
     100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
@@ -589,11 +556,17 @@
 
 <div class="bg-grid"></div>
 
-<!-- Super Top Mode Banner -->
+<!-- Super Top Mode Banner (Left) -->
 <div class="mode-banner" id="modeBanner">
   Mode: <span id="modeText">Auto Showcase</span>
   <button class="mode-btn" id="modeToggleBtn">Switch to Interactive</button>
 </div>
+
+<!-- Super Top Restart Showcase Button (Right) -->
+<button class="top-restart-btn" id="topRestartBtn">
+  <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+  Restart Showcase
+</button>
 
 <div class="stage">
   <!-- Compact Brand Header close to the phone -->
@@ -759,24 +732,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Bottom Timeline Progress -->
-  <div class="bottom-bar">
-    <div class="progress-dots" id="progressDots">
-      <div class="dot" id="dot-0"><div class="dot-fill"></div></div>
-      <div class="dot" id="dot-1"><div class="dot-fill"></div></div>
-      <div class="dot" id="dot-2"><div class="dot-fill"></div></div>
-      <div class="dot" id="dot-3"><div class="dot-fill"></div></div>
-      <div class="dot" id="dot-4"><div class="dot-fill"></div></div>
-      <div class="dot" id="dot-5"><div class="dot-fill"></div></div>
-      <div class="dot" id="dot-6"><div class="dot-fill"></div></div>
-      <div class="dot" id="dot-7"><div class="dot-fill"></div></div>
-    </div>
-    <button class="replay-btn" id="replayBtn">
-      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
-      Restart Showcase
-    </button>
-  </div>
 </div>
 
 <script>
@@ -815,7 +770,6 @@
     const portfolioView = document.getElementById('portfolioView');
 
     const duration = STEPS[idx].duration;
-    document.documentElement.style.setProperty('--dot-duration', (duration / 1000) + 's');
 
     if (idx === 0) {
       document.querySelectorAll('.feature-callout').forEach(c => c.classList.remove('visible'));
@@ -871,24 +825,13 @@
       document.querySelectorAll('.feature-callout').forEach(c => c.classList.add('visible'));
     }
 
-    STEPS.forEach((_, i) => {
-      const dot = document.getElementById(`dot-${i}`);
-      dot.classList.remove('active', 'done');
-      if (i < idx) {
-        dot.classList.add('done');
-      } else if (i === idx) {
-        void dot.offsetWidth;
-        dot.classList.add('active');
-      }
-    });
-
     currentTimer = setTimeout(() => {
       stepIndex = (stepIndex + 1) % STEPS.length;
       activateStep(stepIndex);
     }, duration);
   }
 
-    function startLoop() {
+  function startLoop() {
     if (isInteractiveMode) return;
     if (currentTimer) clearTimeout(currentTimer);
     document.querySelectorAll('.feature-callout').forEach(c => c.classList.remove('visible'));
@@ -939,7 +882,7 @@
     }
   });
 
-  document.getElementById('replayBtn').addEventListener('click', () => {
+  document.getElementById('topRestartBtn').addEventListener('click', () => {
     if (isInteractiveMode) {
       const iframe = document.getElementById('portfolioIframe');
       iframe.src = iframe.src;
