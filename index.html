@@ -43,6 +43,46 @@
     z-index: 0;
   }
 
+  /* Super Top Mode Banner */
+  .mode-banner {
+    position: fixed;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(30, 41, 59, 0.92);
+    border: 1px solid rgba(96, 165, 250, 0.4);
+    backdrop-filter: blur(8px);
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-size: 11px;
+    color: #94a3b8;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  }
+
+  .mode-banner span {
+    color: #60a5fa;
+    font-weight: 700;
+  }
+
+  .mode-btn {
+    background: #60a5fa;
+    color: #0f172a;
+    border: none;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 999px;
+    cursor: pointer;
+  }
+
+  .mode-btn:hover {
+    background: #93c5fd;
+  }
+
   .stage {
     position: relative;
     width: 100%;
@@ -52,38 +92,34 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px 16px;
+    justify-content: center;
+    padding: 36px 16px 16px;
     z-index: 2;
   }
 
+  /* Compact Brand Header closer to phone */
   .brand-header {
     text-align: center;
     z-index: 10;
+    margin-bottom: 6px;
   }
 
   .brand-logo {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    font-size: 19px;
+    gap: 6px;
+    font-size: 16px;
     font-weight: 800;
     letter-spacing: 0.08em;
     color: #ffffff;
   }
 
   .brand-logo svg {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
     stroke: #60a5fa;
     fill: none;
     stroke-width: 2.4;
-  }
-
-  .brand-motto {
-    font-size: 11.5px;
-    color: #94a3b8;
-    margin-top: 2px;
   }
 
   /* Device Stage */
@@ -91,21 +127,21 @@
     position: relative;
     width: 100%;
     max-width: 390px;
-    height: 560px;
+    height: 540px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto 0;
+    margin: 4px 0;
   }
 
   /* Phone Mockup Frame */
   .phone-wrapper {
     position: relative;
-    width: 256px;
-    height: 540px;
-    border-radius: 40px;
+    width: 246px;
+    height: 510px;
+    border-radius: 36px;
     background: #05070c;
-    padding: 8px;
+    padding: 7px;
     box-shadow: 
       0 25px 60px rgba(0, 0, 0, 0.85),
       0 0 0 1px rgba(255, 255, 255, 0.16),
@@ -117,18 +153,18 @@
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 33px;
+    border-radius: 30px;
     background: #0f172a;
     overflow: hidden;
   }
 
   .dynamic-island {
     position: absolute;
-    top: 8px;
+    top: 7px;
     left: 50%;
     transform: translateX(-50%);
-    width: 72px;
-    height: 18px;
+    width: 68px;
+    height: 16px;
     background: #000000;
     border-radius: 999px;
     z-index: 60;
@@ -151,14 +187,14 @@
   }
 
   .lock-time {
-    font-size: 42px;
+    font-size: 38px;
     font-weight: 700;
     letter-spacing: -0.02em;
     color: #ffffff;
   }
 
   .lock-date {
-    font-size: 11px;
+    font-size: 10.5px;
     color: rgba(255,255,255,0.9);
     margin-top: 2px;
   }
@@ -166,17 +202,17 @@
   /* NFC Notification Banner inside Phone */
   .nfc-notification {
     position: absolute;
-    top: 34px;
-    left: 10px;
-    right: 10px;
+    top: 30px;
+    left: 8px;
+    right: 8px;
     background: rgba(30, 41, 59, 0.96);
     backdrop-filter: blur(12px);
     border: 1.5px solid rgba(96, 165, 250, 0.5);
-    border-radius: 14px;
-    padding: 9px 11px;
+    border-radius: 12px;
+    padding: 8px 10px;
     display: flex;
     align-items: center;
-    gap: 9px;
+    gap: 8px;
     box-shadow: 0 12px 25px rgba(0,0,0,0.6);
     z-index: 55;
     opacity: 0;
@@ -196,9 +232,9 @@
   }
 
   .nfc-icon-box {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
     background: rgba(68, 114, 196, 0.25);
     display: flex;
     align-items: center;
@@ -207,8 +243,8 @@
   }
 
   .nfc-icon-box svg {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     stroke: #60a5fa;
     fill: none;
     stroke-width: 2.2;
@@ -216,9 +252,9 @@
 
   .notif-tap-ring {
     position: absolute;
-    right: 16px;
-    width: 22px;
-    height: 22px;
+    right: 14px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     background: rgba(96, 165, 250, 0.35);
     border: 2px solid #60a5fa;
@@ -236,7 +272,7 @@
   .external-card-wrapper {
     position: absolute;
     top: 25px;
-    right: -110px;
+    right: -105px;
     z-index: 35;
     opacity: 0;
     transform: translate(30px, -15px) rotate(10deg);
@@ -246,7 +282,7 @@
 
   .external-card-wrapper.tapping {
     opacity: 1;
-    transform: translate(-95px, 8px) rotate(-4deg);
+    transform: translate(-92px, 8px) rotate(-4deg);
   }
 
   .external-card-wrapper.hide-away {
@@ -256,13 +292,13 @@
   }
 
   .lynq-card-code {
-    width: 150px;
-    height: 95px;
-    border-radius: 11px;
+    width: 140px;
+    height: 88px;
+    border-radius: 10px;
     background: linear-gradient(145deg, #1b2029 0%, #090c12 100%);
     border: 1px solid rgba(255, 255, 255, 0.22);
     box-shadow: 0 15px 30px rgba(0,0,0,0.8);
-    padding: 12px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -276,8 +312,8 @@
   }
 
   .card-wifi-icon {
-    width: 16px;
-    height: 16px;
+    width: 14px;
+    height: 14px;
     stroke: rgba(255, 255, 255, 0.9);
     fill: none;
     stroke-width: 2.2;
@@ -288,13 +324,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
+    gap: 4px;
     margin: auto 0;
   }
 
   .card-chain-svg {
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
     fill: none;
     stroke-width: 2.3;
     stroke-linecap: round;
@@ -302,7 +338,7 @@
   }
 
   .card-brand-name {
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 800;
     color: #ffffff;
     letter-spacing: 0.12em;
@@ -313,8 +349,8 @@
     top: 20px;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.3);
-    width: 110px;
-    height: 110px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     border: 2px solid rgba(96, 165, 250, 0.7);
     opacity: 0;
@@ -340,15 +376,15 @@
 
   .portfolio-view.active {
     opacity: 1;
-    pointer-events: auto; /* Fully clickable & scrollable */
+    pointer-events: auto;
   }
 
   .browser-bar-top {
     position: absolute;
-    top: 30px;
+    top: 26px;
     left: 8px;
     right: 8px;
-    height: 22px;
+    height: 20px;
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(8px);
     border-radius: 999px;
@@ -356,7 +392,7 @@
     align-items: center;
     justify-content: center;
     gap: 4px;
-    font-size: 8.5px;
+    font-size: 8px;
     font-weight: 600;
     color: #334155;
     box-shadow: 0 2px 6px rgba(0,0,0,0.06);
@@ -365,8 +401,8 @@
   }
 
   .browser-bar-top svg {
-    width: 8px;
-    height: 8px;
+    width: 7.5px;
+    height: 7.5px;
     stroke: #10b981;
     fill: none;
     stroke-width: 2.5;
@@ -374,13 +410,13 @@
 
   .iframe-scaler {
     position: absolute;
-    top: 54px;
+    top: 48px;
     left: 0;
-    width: 387px;
-    height: 760px;
-    transform: scale(0.62);
+    width: 396px;
+    height: 750px;
+    transform: scale(0.595);
     transform-origin: top left;
-    overflow: auto; /* Allows scrolling inside iframe wrapper */
+    overflow: auto;
     -webkit-overflow-scrolling: touch;
   }
 
@@ -388,14 +424,14 @@
     width: 100%;
     height: 100%;
     border: none;
-    pointer-events: auto; /* Fully interactable with clicks & links */
+    pointer-events: auto;
   }
 
   /* POP-UP ANIMATION STYLES */
   @keyframes popIn {
     0% {
       opacity: 0;
-      transform: scale(0.3) translateY(15px);
+      transform: scale(0.3) translateY(12px);
     }
     70% {
       transform: scale(1.08) translateY(-3px);
@@ -414,9 +450,9 @@
     -webkit-backdrop-filter: blur(14px);
     border: 1.5px solid #60a5fa;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.75), 0 0 18px rgba(68, 114, 196, 0.4);
-    border-radius: 12px;
-    padding: 7px 9px;
-    width: 118px;
+    border-radius: 11px;
+    padding: 6px 8px;
+    width: 112px;
     opacity: 0;
     transform: scale(0.3);
     pointer-events: none;
@@ -430,16 +466,16 @@
   .callout-title {
     display: flex;
     align-items: center;
-    gap: 4px;
-    font-size: 9px;
+    gap: 3.5px;
+    font-size: 8.5px;
     font-weight: 800;
     color: #60a5fa;
-    margin-bottom: 2px;
+    margin-bottom: 1.5px;
   }
 
   .callout-title svg {
-    width: 10.5px;
-    height: 10.5px;
+    width: 10px;
+    height: 10px;
     stroke: #60a5fa;
     fill: none;
     stroke-width: 2.3;
@@ -447,73 +483,35 @@
   }
 
   .callout-text {
-    font-size: 7.5px;
-    line-height: 1.28;
+    font-size: 7px;
+    line-height: 1.25;
     color: #e2e8f0;
   }
 
   .callout-arrow {
     position: absolute;
-    width: 9px;
-    height: 9px;
+    width: 8px;
+    height: 8px;
     background: rgba(15, 23, 42, 0.97);
     border-right: 1.5px solid #60a5fa;
     border-bottom: 1.5px solid #60a5fa;
   }
 
   /* 10 Feature Boxes Around the Phone */
-  #callout-1 { top: 12px; left: -45px; width: 122px; }
-  #callout-1 .callout-arrow { top: 15px; right: -5px; transform: rotate(-45deg); }
+  #callout-1 { top: 10px; left: -42px; width: 118px; }
+  #callout-1 .callout-arrow { top: 14px; right: -5px; transform: rotate(-45deg); }
 
-  #callout-2 { top: 35px; right: -45px; width: 122px; }
-  #callout-2 .callout-arrow { top: 15px; left: -5px; transform: rotate(135deg); }
+  #callout-2 { top: 30px; right: -42px; width: 118px; }
+  #callout-2 .callout-arrow { top: 14px; left: -5px; transform: rotate(135deg); }
 
-  #callout-3 { top: 112px; left: -45px; }
-  #callout-4 { top: 132px; right: -45px; }
-  #callout-5 { top: 204px; left: -45px; }
-  #callout-6 { top: 224px; right: -45px; }
-  #callout-7 { top: 296px; left: -45px; }
-  #callout-8 { top: 316px; right: -45px; }
-  #callout-9 { top: 388px; left: -45px; }
-  #callout-10 { top: 408px; right: -45px; }
-
-  /* Mode Switcher Banner (Interactive Mode vs Auto Showcase Mode) */
-  .mode-banner {
-    position: absolute;
-    top: 10px;
-    background: rgba(30, 41, 59, 0.9);
-    border: 1px solid rgba(96, 165, 250, 0.4);
-    backdrop-filter: blur(8px);
-    border-radius: 999px;
-    padding: 4px 12px;
-    font-size: 11px;
-    color: #94a3b8;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  }
-
-  .mode-banner span {
-    color: #60a5fa;
-    font-weight: 700;
-  }
-
-  .mode-btn {
-    background: #60a5fa;
-    color: #0f172a;
-    border: none;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 999px;
-    cursor: pointer;
-  }
-
-  .mode-btn:hover {
-    background: #93c5fd;
-  }
+  #callout-3 { top: 105px; left: -42px; }
+  #callout-4 { top: 125px; right: -42px; }
+  #callout-5 { top: 195px; left: -42px; }
+  #callout-6 { top: 215px; right: -42px; }
+  #callout-7 { top: 285px; left: -42px; }
+  #callout-8 { top: 305px; right: -42px; }
+  #callout-9 { top: 375px; left: -42px; }
+  #callout-10 { top: 395px; right: -42px; }
 
   /* Bottom Controls */
   .bottom-bar {
@@ -521,8 +519,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     z-index: 20;
+    margin-top: 4px;
   }
 
   .progress-dots {
@@ -561,20 +560,20 @@
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.18);
     color: #cbd5e1;
-    font-size: 10.5px;
+    font-size: 10px;
     font-weight: 600;
-    padding: 5px 12px;
+    padding: 4px 11px;
     border-radius: 999px;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     cursor: pointer;
     backdrop-filter: blur(8px);
   }
 
   .replay-btn svg {
-    width: 12px;
-    height: 12px;
+    width: 11px;
+    height: 11px;
     stroke: currentColor;
     fill: none;
     stroke-width: 2.2;
@@ -590,14 +589,14 @@
 
 <div class="bg-grid"></div>
 
-<div class="stage">
-  <!-- Mode Switcher -->
-  <div class="mode-banner" id="modeBanner">
-    Mode: <span id="modeText">Auto Showcase</span>
-    <button class="mode-btn" id="modeToggleBtn">Switch to Interactive</button>
-  </div>
+<!-- Super Top Mode Banner -->
+<div class="mode-banner" id="modeBanner">
+  Mode: <span id="modeText">Auto Showcase</span>
+  <button class="mode-btn" id="modeToggleBtn">Switch to Interactive</button>
+</div>
 
-  <!-- Top Brand Header -->
+<div class="stage">
+  <!-- Compact Brand Header close to the phone -->
   <div class="brand-header">
     <div class="brand-logo">
       <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
@@ -606,13 +605,12 @@
       </svg>
       LYNQ
     </div>
-    <div class="brand-motto">Bridging possibilities with one tap.</div>
   </div>
 
   <!-- Device Stage -->
   <div class="device-container">
 
-    <!-- PHYSICAL CARD TAPPING OUTSIDE THE PHONE (Clickable in manual mode) -->
+    <!-- PHYSICAL CARD TAPPING OUTSIDE THE PHONE -->
     <div class="external-card-wrapper" id="externalCard" title="Click to simulate tap">
       <div class="lynq-card-code">
         <div class="card-top-row">
@@ -741,8 +739,8 @@
             <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
           </div>
           <div style="flex:1; min-width:0;">
-            <div style="font-size:10px; font-weight:700; color:#f8fafc;">Website NFC Tag</div>
-            <div style="font-size:8.5px; color:#94a3b8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Open "lynq.lynqmewithyou.workers.dev"</div>
+            <div style="font-size:9.5px; font-weight:700; color:#f8fafc;">Website NFC Tag</div>
+            <div style="font-size:8px; color:#94a3b8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Open "lynq.lynqmewithyou.workers.dev"</div>
           </div>
           <div class="notif-tap-ring" id="notifTapRing"></div>
         </div>
@@ -890,7 +888,7 @@
     }, duration);
   }
 
-  function startLoop() {
+    function startLoop() {
     if (isInteractiveMode) return;
     if (currentTimer) clearTimeout(currentTimer);
     document.querySelectorAll('.feature-callout').forEach(c => c.classList.remove('visible'));
@@ -909,7 +907,6 @@
     if (isInteractiveMode) {
       modeText.textContent = 'Fully Interactive';
       modeToggleBtn.textContent = 'Switch to Auto Showcase';
-      // Show everything and open portfolio fully scrollable/clickable
       document.querySelectorAll('.feature-callout').forEach(c => c.classList.add('visible'));
       document.getElementById('portfolioView').classList.add('active');
       document.getElementById('externalCard').classList.add('hide-away');
@@ -944,7 +941,6 @@
 
   document.getElementById('replayBtn').addEventListener('click', () => {
     if (isInteractiveMode) {
-      // In interactive mode, reload or reset iframe
       const iframe = document.getElementById('portfolioIframe');
       iframe.src = iframe.src;
     } else {
