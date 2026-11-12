@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LYNQ — Product Showcase</title>
+<style>
+  :root {
+    --bg: #070a12;
+    --accent: #4472C4;
+    --text-main: #f8fafc;
+    --text-sub: #94a3b8;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html, body {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 25%, #131c33 0%, #070a12 75%);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+    color: var(--text-main);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bg-grid {
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(68, 114, 196, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(68, 114, 196, 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+    z-index: 0;
+  }
+
+  .stage {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    height: 100%;
+    max-height: 940px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px 16px;
+    z-index: 2;
+  }
+
+  .brand-header {
+    text-align: center;
+    z-index: 10;
+  }
+
+  .brand-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 19px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+  }
+
+  .brand-logo svg {
+    width: 22px;
+    height: 22px;
+    stroke: #60a5fa;
+    fill: none;
+    stroke-width: 2.4;
+  }
+
+  .brand-motto {
+    font-size: 11.5px;
+    color: #94a3b8;
+    margin-top: 2px;
+  }
+
+  /* Device Stage */
+  .device-container {
+    position: relative;
+    width: 100%;
+    max-width: 390px;
+    height: 560px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto 0;
+  }
+
+  /* Phone Mockup Frame */
+  .phone-wrapper {
+    position: relative;
+    width: 256px;
+    height: 540px;
+    border-radius: 40px;
+    background: #05070c;
+    padding: 8px;
+    box-shadow: 
+      0 25px 60px rgba(0, 0, 0, 0.85),
+      0 0 0 1px rgba(255, 255, 255, 0.16),
+      0 0 45px rgba(68, 114, 196, 0.25);
+    z-index: 5;
+  }
+
+  .phone-screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 33px;
+    background: #0f172a;
+    overflow: hidden;
+  }
+
+  .dynamic-island {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72px;
+    height: 18px;
+    background: #000000;
+    border-radius: 999px;
+    z-index: 60;
+  }
+
+  /* Lock Screen with Nature Photo Background */
+  .lock-screen {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80') center/cover no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    transition: opacity 0.4s ease;
+    z-index: 10;
+  }
+
+  .lock-time {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+  }
+
+  .lock-date {
+    font-size: 11px;
+    color: rgba(255,255,255,0.9);
+    margin-top: 2px;
+  }
+
+  /* NFC Notification Banner inside Phone */
+  .nfc-notification {
+    position: absolute;
+    top: 34px;
+    left: 10px;
+    right: 10px;
+    background: rgba(30, 41, 59, 0.96);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(96, 165, 250, 0.5);
+    border-radius: 14px;
+    padding: 9px 11px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.6);
+    z-index: 55;
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+    transition: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .nfc-notification.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .nfc-notification.tap-click {
+    transform: scale(0.94);
+    background: rgba(51, 65, 85, 0.98);
+  }
+
+  .nfc-icon-box {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    background: rgba(68, 114, 196, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+  }
+
+  .nfc-icon-box svg {
+    width: 16px;
+    height: 16px;
+    stroke: #60a5fa;
+    fill: none;
+    stroke-width: 2.2;
+  }
+
+  .notif-tap-ring {
+    position: absolute;
+    right: 16px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(96, 165, 250, 0.35);
+    border: 2px solid #60a5fa;
+    opacity: 0;
+    transform: scale(0.6);
+    transition: all 0.25s ease;
+  }
+
+  .notif-tap-ring.active {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
+  /* PHYSICAL CARD TAPPING OUTSIDE THE PHONE */
+  .external-card-wrapper {
+    position: absolute;
+    top: 25px;
+    right: -110px;
+    z-index: 35;
+    opacity: 0;
+    transform: translate(30px, -15px) rotate(10deg);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .external-card-wrapper.tapping {
+    opacity: 1;
+    transform: translate(-95px, 8px) rotate(-4deg);
+  }
+
+  .external-card-wrapper.hide-away {
+    opacity: 0;
+    transform: translate(50px, -20px) rotate(14deg);
+  }
+
+  .lynq-card-code {
+    width: 150px;
+    height: 95px;
+    border-radius: 11px;
+    background: linear-gradient(145deg, #1b2029 0%, #090c12 100%);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.8);
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+
+  .card-top-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  .card-wifi-icon {
+    width: 16px;
+    height: 16px;
+    stroke: rgba(255, 255, 255, 0.9);
+    fill: none;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+  }
+
+  .card-logo-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin: auto 0;
+  }
+
+  .card-chain-svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke-width: 2.3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .card-brand-name {
+    font-size: 14px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.12em;
+  }
+
+  .tap-ripple {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.3);
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 2px solid rgba(96, 165, 250, 0.7);
+    opacity: 0;
+    z-index: 30;
+    pointer-events: none;
+  }
+
+  .tap-ripple.pulse {
+    animation: nfcPulseOut 1.1s ease-out forwards;
+  }
+
+  /* SCALED IFRAME PORTFOLIO VIEW */
+  .portfolio-view {
+    position: absolute;
+    inset: 0;
+    background: #f4f5f7;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.45s ease;
+    z-index: 20;
+    overflow: hidden;
+  }
+
+  .portfolio-view.active {
+    opacity: 1;
+  }
+
+  .browser-bar-top {
+    position: absolute;
+    top: 30px;
+    left: 8px;
+    right: 8px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    font-size: 8.5px;
+    font-weight: 600;
+    color: #334155;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+    z-index: 30;
+  }
+
+  .browser-bar-top svg {
+    width: 8px;
+    height: 8px;
+    stroke: #10b981;
+    fill: none;
+    stroke-width: 2.5;
+  }
+
+  .iframe-scaler {
+    position: absolute;
+    top: 54px;
+    left: 0;
+    width: 387px;
+    height: 760px;
+    transform: scale(0.62);
+    transform-origin: top left;
+    overflow: hidden;
+  }
+
+  .iframe-scaler iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* POP-UP ANIMATION STYLES (POP POP POP around the phone) */
+  @keyframes popIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.3) translateY(15px);
+    }
+    70% {
+      transform: scale(1.08) translateY(-3px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .feature-callout {
+    position: absolute;
+    z-index: 45;
+    background: rgba(15, 23, 42, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1.5px solid #60a5fa;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.75), 0 0 20px rgba(68, 114, 196, 0.4);
+    border-radius: 13px;
+    padding: 8px 10px;
+    width: 125px;
+    opacity: 0;
+    transform: scale(0.3);
+    pointer-events: none;
+  }
+
+  .feature-callout.visible {
+    opacity: 1;
+    animation: popIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  }
+
+  .callout-title {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 9.5px;
+    font-weight: 800;
+    color: #60a5fa;
+    margin-bottom: 2px;
+  }
+
+  .callout-title svg {
+    width: 11px;
+    height: 11px;
+    stroke: #60a5fa;
+    fill: none;
+    stroke-width: 2.3;
+    flex: none;
+  }
+
+  .callout-text {
+    font-size: 8px;
+    line-height: 1.3;
+    color: #e2e8f0;
+  }
+
+  .callout-arrow {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background: rgba(15, 23, 42, 0.97);
+    border-right: 1.5px solid #60a5fa;
+    border-bottom: 1.5px solid #60a5fa;
+  }
+
+  /* Precise positions around the phone */
+  #callout-1 { top: 20px; left: -45px; }
+  #callout-1 .callout-arrow { top: 16px; right: -5px; transform: rotate(-45deg); }
+
+  #callout-2 { top: 60px; right: -45px; }
+  #callout-2 .callout-arrow { top: 16px; left: -5px; transform: rotate(135deg); }
+
+  #callout-3 { top: 130px; left: -42px; width: 115px; }
+  #callout-4 { top: 210px; right: -42px; width: 115px; }
+  #callout-5 { top: 290px; left: -42px; width: 115px; }
+  #callout-6 { top: 370px; right: -42px; width: 115px; }
+
+  /* Bottom Controls */
+  .bottom-bar {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 20;
+  }
+
+  .progress-dots {
+    display: flex;
+    gap: 4px;
+  }
+
+  .dot {
+    width: 18px;
+    height: 3px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .dot-fill {
+    position: absolute;
+    inset: 0;
+    width: 0%;
+    background: #60a5fa;
+    border-radius: 999px;
+  }
+
+  .dot.active .dot-fill {
+    width: 100%;
+    transition: width var(--dot-duration, 3.5s) linear;
+  }
+
+  .dot.done .dot-fill {
+    width: 100%;
+  }
+
+  .replay-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #cbd5e1;
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    backdrop-filter: blur(8px);
+  }
+
+  .replay-btn svg {
+    width: 12px;
+    height: 12px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2.2;
+  }
+
+  @keyframes nfcPulseOut {
+    0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0.95; }
+    100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+
+<div class="stage">
+  <!-- Top Brand Header -->
+  <div class="brand-header">
+    <div class="brand-logo">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+      </svg>
+      LYNQ
+    </div>
+    <div class="brand-motto">Connecting worlds in one tap.</div>
+  </div>
+
+  <!-- Device Stage -->
+  <div class="device-container">
+
+    <!-- PHYSICAL CARD TAPPING OUTSIDE THE PHONE -->
+    <div class="external-card-wrapper" id="externalCard">
+      <div class="lynq-card-code">
+        <div class="card-top-row">
+          <svg class="card-wifi-icon" viewBox="0 0 24 24">
+            <path d="M6 8.32a7.43 7.43 0 0 1 0 7.36"/>
+            <path d="M9.46 6.21a11.76 11.76 0 0 1 0 11.58"/>
+            <path d="M12.91 4.1a15.91 15.91 0 0 1 .01 15.8"/>
+          </svg>
+        </div>
+        <div class="card-logo-center">
+          <svg class="card-chain-svg" viewBox="0 0 24 24">
+            <defs>
+              <linearGradient id="chainGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#38bdf8"/>
+                <stop offset="100%" stop-color="#ec4899"/>
+              </linearGradient>
+            </defs>
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" stroke="url(#chainGrad)"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" stroke="url(#chainGrad)"/>
+          </svg>
+          <span class="card-brand-name">LYNQ</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- NFC Ripple on Top Edge of Phone -->
+    <div class="tap-ripple" id="tapRipple"></div>
+
+    <!-- PORTFOLIO FEATURES POPPING UP FAST ONE BY ONE AROUND THE PHONE -->
+    
+    <!-- 1. One-Tap Sharing -->
+    <div class="feature-callout" id="callout-1">
+      <div class="callout-title">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+        1. One-Tap Sharing
+      </div>
+      <div class="callout-text">Tap card on phone to connect instantly.</div>
+      <div class="callout-arrow"></div>
+    </div>
+
+    <!-- 2. Zero App Needed -->
+    <div class="feature-callout" id="callout-2">
+      <div class="callout-title">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        2. Zero App Needed
+      </div>
+      <div class="callout-text">Safe popup link appears with no downloads.</div>
+      <div class="callout-arrow"></div>
+    </div>
+
+    <!-- 3. Digital ID & Gallery -->
+    <div class="feature-callout" id="callout-3">
+      <div class="callout-title">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        3. Digital ID
+      </div>
+      <div class="callout-text">Clean layout showing photo &amp; gallery.</div>
+    </div>
+
+    <!-- 4. Save Contact -->
+    <div class="feature-callout" id="callout-4">
+      <div class="callout-title">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="17" y1="11" x2="23" y2="11"/></svg>
+        4. Save Contact
+      </div>
+      <div class="callout-text">Visitors save your details in 1 click.</div>
+    </div>
+
+    <!-- 5. Social & Web Links -->
+    <div class="feature-callout" id="callout-5">
+      <div class="callout-title">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        5. Social Links
+      </div>
+      <div class="callout-text">All your professional links in one place.</div>
+    </div>
+
+    <!-- 6. Fully Editable -->
+    <div class="feature-callout" id="callout-6">
+      <div class="callout-title">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        6. Fully Editable
+      </div>
+      <div class="callout-text">Update anytime online; syncs instantly!</div>
+    </div>
+
+    <!-- PHONE MOCKUP -->
+    <div class="phone-wrapper">
+      <div class="phone-screen">
+        <div class="dynamic-island"></div>
+
+        <!-- Lock Screen with Nature Photo Background -->
+        <div class="lock-screen" id="lockScreen">
+          <div class="lock-time">9:41</div>
+          <div class="lock-date">Thursday, November 12</div>
+        </div>
+
+        <!-- NFC Notification Banner -->
+        <div class="nfc-notification" id="nfcNotif">
+          <div class="nfc-icon-box">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          </div>
+          <div style="flex:1; min-width:0;">
+            <div style="font-size:10px; font-weight:700; color:#f8fafc;">Website NFC Tag</div>
+            <div style="font-size:8.5px; color:#94a3b8; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">Open "lynq.lynqmewithyou.workers.dev"</div>
+          </div>
+          <div class="notif-tap-ring" id="notifTapRing"></div>
+        </div>
+
+        <!-- Scaled Real Portfolio Screen -->
+        <div class="portfolio-view" id="portfolioView">
+          <div class="browser-bar-top">
+            <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            lynq.lynqmewithyou.workers.dev/?card=LYNQ01
+          </div>
+          <div class="iframe-scaler">
+            <iframe id="portfolioIframe" src="https://lynq.lynqmewithyou.workers.dev/?card=LYNQ01" title="LYNQ01 Portfolio"></iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Timeline Progress (7 steps: 0 = idle moment, 1..5 = features popping up, 6 = final exit hold) -->
+  <div class="bottom-bar">
+    <div class="progress-dots" id="progressDots">
+      <div class="dot" id="dot-0"><div class="dot-fill"></div></div>
+      <div class="dot" id="dot-1"><div class="dot-fill"></div></div>
+      <div class="dot" id="dot-2"><div class="dot-fill"></div></div>
+      <div class="dot" id="dot-3"><div class="dot-fill"></div></div>
+      <div class="dot" id="dot-4"><div class="dot-fill"></div></div>
+      <div class="dot" id="dot-5"><div class="dot-fill"></div></div>
+      <div class="dot" id="dot-6"><div class="dot-fill"></div></div>
+    </div>
+    <button class="replay-btn" id="replayBtn">
+      <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+      Restart Showcase
+    </button>
+  </div>
+</div>
+
+<script>
+  const STEPS = [
+    { type: 'step-idle', duration: 2500 }, // Initial idle moment before card & 1st text box appear
+    { type: 'step-1', duration: 2500 },
+    { type: 'step-2', duration: 2500 },
+    { type: 'step-3', duration: 2800 },
+    { type: 'step-4', duration: 2500 },
+    { type: 'step-5', duration: 2500 },
+    { type: 'step-hold', duration: 4500 }  // Final hold for clean video exit
+  ];
+
+  let stepIndex = 0;
+  let currentTimer = null;
+
+  function activateStep(idx) {
+    if (currentTimer) clearTimeout(currentTimer);
+
+    const cardEl = document.getElementById('externalCard');
+    const rippleEl = document.getElementById('tapRipple');
+    const notifEl = document.getElementById('nfcNotif');
+    const tapRingEl = document.getElementById('notifTapRing');
+    const portfolioView = document.getElementById('portfolioView');
+
+    const duration = STEPS[idx].duration;
+    document.documentElement.style.setProperty('--dot-duration', (duration / 1000) + 's');
+
+    if (idx === 0) {
+      // Idle moment: clean lock screen, no card, no text boxes
+      document.querySelectorAll('.feature-callout').forEach(c => c.classList.remove('visible'));
+      portfolioView.classList.remove('active');
+      notifEl.classList.remove('show', 'tap-click');
+      tapRingEl.classList.remove('active');
+      cardEl.classList.remove('tapping', 'hide-away');
+
+    } else if (idx === 1) {
+      // Card taps phone + 1st callout appears
+      setTimeout(() => {
+        cardEl.classList.add('tapping');
+        rippleEl.classList.remove('pulse');
+        void rippleEl.offsetWidth;
+        rippleEl.classList.add('pulse');
+      }, 200);
+
+      setTimeout(() => {
+        document.getElementById('callout-1').classList.add('visible');
+      }, 300);
+
+    } else if (idx === 2) {
+      // Card leaves, NFC notification pops up + 2nd callout appears
+      cardEl.classList.remove('tapping');
+      cardEl.classList.add('hide-away');
+      notifEl.classList.add('show');
+
+      setTimeout(() => {
+        tapRingEl.classList.add('active');
+        notifEl.classList.add('tap-click');
+      }, 1000);
+
+      setTimeout(() => {
+        document.getElementById('callout-1').classList.add('visible');
+        document.getElementById('callout-2').classList.add('visible');
+      }, 200);
+
+    } else if (idx === 3) {
+      // Portfolio opens + 3rd callout appears
+      cardEl.classList.add('hide-away');
+      notifEl.classList.remove('show', 'tap-click');
+      tapRingEl.classList.remove('active');
+      portfolioView.classList.add('active');
+
+      document.getElementById('callout-1').classList.add('visible');
+      document.getElementById('callout-2').classList.add('visible');
+      setTimeout(() => {
+        document.getElementById('callout-3').classList.add('visible');
+      }, 250);
+
+    } else if (idx === 4) {
+      // 4th callout appears
+      portfolioView.classList.add('active');
+      document.getElementById('callout-1').classList.add('visible');
+      document.getElementById('callout-2').classList.add('visible');
+      document.getElementById('callout-3').classList.add('visible');
+      document.getElementById('callout-4').classList.add('visible');
+
+    } else if (idx === 5) {
+      // 5th & 6th callouts appear
+      portfolioView.classList.add('active');
+      document.querySelectorAll('.feature-callout').forEach(c => c.classList.add('visible'));
+
+    } else if (idx === 6) {
+      // Final hold with all 6 pop-ups visible for clean video exit
+      portfolioView.classList.add('active');
+      document.querySelectorAll('.feature-callout').forEach(c => c.classList.add('visible'));
+    }
+
+    // Update progress dots
+    STEPS.forEach((_, i) => {
+      const dot = document.getElementById(`dot-${i}`);
+      dot.classList.remove('active', 'done');
+      if (i < idx) {
+        dot.classList.add('done');
+      } else if (i === idx) {
+        void dot.offsetWidth;
+        dot.classList.add('active');
+      }
+    });
+
+    currentTimer = setTimeout(() => {
+      stepIndex = (stepIndex + 1) % STEPS.length;
+      activateStep(stepIndex);
+    }, duration);
+  }
+
+  function startLoop() {
+    if (currentTimer) clearTimeout(currentTimer);
+    document.querySelectorAll('.feature-callout').forEach(c => c.classList.remove('visible'));
+    stepIndex = 0;
+    activateStep(stepIndex);
+  }
+
+  document.getElementById('replayBtn').addEventListener('click', startLoop);
+  window.addEventListener('DOMContentLoaded', startLoop);
+</script>
+</body>
+</html>
